@@ -1,0 +1,19 @@
+{
+  "name": "instagram-private-api-example",
+  "version": "1.0.0",
+  "description": "",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hynra/instagram-private-api-example.git"
+  },
+  "author": "github.com/hynra",
+  "license": "UNLICENSED",
+  "bugs": {
+    "url": "https://github.com/hynra/instagram-private-api-example/issues"
+  },
+  "homepage": "https://github.com/hynra/instagram-private-api-example#readme"
+}
