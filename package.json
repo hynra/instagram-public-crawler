@@ -15,5 +15,10 @@
   "bugs": {
     "url": "https://github.com/hynra/instagram-private-api-example/issues"
   },
-  "homepage": "https://github.com/hynra/instagram-private-api-example#readme"
+  "homepage": "https://github.com/hynra/instagram-private-api-example#readme",
+  "dependencies": {
+    "bluebird": "^3.5.3",
+    "instagram-private-api": "^0.6.8",
+    "lodash": "^4.17.11"
+  }
 }
