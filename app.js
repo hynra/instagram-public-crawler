@@ -1,33 +1,29 @@
-const acc = {
-    username: "username",
-    password: "password"
+const crawler = require('./src');
+
+loadLite = async() => {
+    try {
+        let media = await crawler.lite("permanahendra", {raw: false});
+        console.log(JSON.stringify(media));
+    } catch (error) {
+        console.log(error)
+    }
 }
 
-const Client = require('instagram-private-api').V1;
-const device = new Client.Device(acc.username);
-const storage = new Client.CookieFileStorage(__dirname + '/cookies/' + acc.username + '.json');
-const _ = require('lodash');
-const Promise = require('bluebird');
+load = async() => {
+    try {
+        let options = {
+            raw: false,
+            username: 'permanahendra',
+            query_hash: '472f257a40c653c64c666ce877d59d2b',
+            media_count: 210,
+            cookie: 'mid=W1X1XQALAAHJWRjBTgzM3UFeWkmt; mcd=3; datr=NQKFWxY73YsDC81ikryvMSy0; csrftoken=n8Kuf8UEN4jFyVUIysZ7ObSwZ6U1XX2x; fbm_124024574287414=base_domain=.instagram.com; csrftoken=7b8rpEE0Gl85fcKBalgGvRF5diWsjrmH; ds_user_id=175641929; sessionid=175641929%3AEPkOIcrX0S3oMf%3A15; shbid=5747; shbts=1552827697.2306864; rur=ATN; urlgen="{"\114.124.239.188\": 23693\054 \"114.124.215.29\": 23693}:1h5gIU:NbF4t2aiuX_X-KCjJTIGHXkcTPg'
+        }
+        let media = await crawler.pull(options);
+        //console.log(JSON.stringify(media.data.user.edge_owner_to_timeline_media.edges.length));
+        console.log(JSON.stringify(media))
+    } catch (error) {
+        console.log(error)
+    }
+}
 
-let session;
-
-Client.Session.create(device, storage, acc.username, acc.password)
-    .then(function (_session) {
-        session = _session;
-        return Client.Account.searchForUser(session, 'crazy.animal.videos');
-    })
-    .then(function (account) {
-        return new Client.Account.getById(session, account.id);
-    })
-    .then(function (account) {
-        const feed = new Client.Feed.UserMedia(session, account.id);
-        Promise.mapSeries(_.range(0, 20), function () {
-            return feed.get();
-        }).then(function (results) {
-            let media = _.flatten(results); 
-            console.log(media)
-        })
-    })
-    .catch(function (err) {
-        console.log(err)
-    });
+load();

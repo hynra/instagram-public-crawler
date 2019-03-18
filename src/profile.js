@@ -19,11 +19,9 @@ getProfile = async (url) => {
             let profile = data.entry_data.ProfilePage[0]
             return profile;
         } else {
-            console.log("info not found");
             return false;
         }
     } catch (error) {
-        console.log("info not found");
         return false;
     }
 }
