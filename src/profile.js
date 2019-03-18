@@ -13,18 +13,18 @@ getProfile = async (url) => {
                 }
             }
         }
-        if(data){
-            data = data.replace("window._sharedData = ", "").slice(0, -1); 
+        if (data) {
+            data = data.replace("window._sharedData = ", "").slice(0, -1);
             data = JSON.parse(data);
             let profile = data.entry_data.ProfilePage[0]
-            //console.log(profile)
             return profile;
-        }else{
+        } else {
             console.log("info not found");
             return false;
         }
     } catch (error) {
-        throw error;
+        console.log("info not found");
+        return false;
     }
 }
 
