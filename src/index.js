@@ -2,7 +2,6 @@ const { getProfile } = require('./profile');
 const base = "https://www.instagram.com/";
 const gqlUri = "https://www.instagram.com/graphql/query"
 const rp = require('request-promise');
-const LIMIT_QUERY = 500;
 
 exports.lite = async (username, options) => {
     try {
@@ -48,9 +47,17 @@ exports.pull = async params => {
             json: true
         };
 
-        if (params.media_count <= 50) {
+        if (params.media_count <= 50 && params.media_count !== -1) {
             let media = await rp(options);
-            return media;
+            if (params.raw === false) {
+                let m = [];
+                let edges = media.data.user.edge_owner_to_timeline_media.edges;
+                for (let i = 0; i < edges.length; i++) {
+                    m.push(edges[i].node.display_url)
+                }
+                return m;
+            } else
+                return media;
         } else {
             let endCursor = profile.graphql.user.edge_owner_to_timeline_media.page_info.end_cursor;
             let hasNextPage = profile.graphql.user.edge_owner_to_timeline_media.page_info.has_next_page;
@@ -78,11 +85,8 @@ exports.pull = async params => {
 pullAllMedia = async (params, options) => {
     try {
         let mediaLimit = options.qs.first;
-        if (mediaLimit > LIMIT_QUERY)
-            mediaLimit = LIMIT_QUERY;
         let endCursor = params.endCursor;
         let hasNextPage = params.hasNextPage;
-        options.qs.after = endCursor;
         options.qs.first = 50;
         let results = [];
         let r;
@@ -91,13 +95,22 @@ pullAllMedia = async (params, options) => {
             const pageInfo = result.data.user.edge_owner_to_timeline_media.page_info;
             hasNextPage = pageInfo.has_next_page
             endCursor = pageInfo.end_cursor;
+            options.qs.after = endCursor;
             let edges = result.data.user.edge_owner_to_timeline_media.edges;
             results.push.apply(results, edges);
-            if (results.length >= mediaLimit) {
+            if (hasNextPage === false) {
                 r = result;
                 break;
+            } else {
+                if (mediaLimit !== -1 && results.length >= mediaLimit) {
+                    r = result;
+                    break;
+                }
             }
+        }
 
+        if (results.length > mediaLimit) {
+            results = results.slice(0, mediaLimit)
         }
         r.data.user.edge_owner_to_timeline_media.edges = results;
         return r;
