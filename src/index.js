@@ -15,15 +15,10 @@ exports.lite = async (username, options) => {
                 for (let i = 0; i < media.length; i++) {
                     mediaLite.push(media[i].node.display_url)
                 }
-                return {
-                    total: mediaLite.length,
-                    user_id: profile.graphql.user.id,
-                    user_name: profile.graphql.user.username,
-                    media: mediaLite
-                };
+                return mediaLite;
             }
         } else {
-            throw new Error("Private profile or account not found");
+            throw new Error("User not found!");
         }
     } catch (error) {
         throw error;
@@ -50,11 +45,13 @@ getProfileByLogged = async params => {
         }
 
     } catch (error) {
-        throw error;
+        if(error.statusCode === 404){
+            throw new Error("User not found!");
+        }else throw error;
     }
 }
 
-exports.pull = async params => {
+exports.start = async params => {
     try {
         
         let profile = await getProfileByLogged(params);
