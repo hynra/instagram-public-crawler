@@ -1,8 +1,8 @@
 {
-  "name": "instagram-private-api-example",
+  "name": "instagram-public-crawler",
   "version": "1.0.0",
   "description": "",
-  "main": "app.js",
+  "main": "./src/index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
   },
@@ -17,13 +17,7 @@
   },
   "homepage": "https://github.com/hynra/instagram-private-api-example#readme",
   "dependencies": {
-    "bluebird": "^3.5.3",
     "cheerio": "^1.0.0-rc.2",
-    "dotenv": "^7.0.0",
-    "instagram-private-api": "^0.6.8",
-    "lodash": "^4.17.11",
-    "request": "^2.88.0",
-    "request-promise": "^4.2.4",
-    "tough-cookie-filestore": "0.0.1"
+    "request-promise": "^4.2.4"
   }
 }
