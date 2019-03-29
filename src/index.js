@@ -30,9 +30,34 @@ exports.lite = async (username, options) => {
     }
 }
 
+
+getProfileByLogged = async params => {
+    try {
+        const profileleUri = `https://www.instagram.com/${params.username}/?__a=1`
+        let options = {
+            uri: profileleUri,
+            headers: {
+                'user_agent': "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/65.0.3325.181 Safari/537.3",
+                'cookie': params.cookie
+            },
+            json: true
+        };
+        let profile = await rp(options);
+        if(profile.graphql.user.is_private){
+            throw new Error("Profile is private!")
+        }else{
+            return profile;
+        }
+
+    } catch (error) {
+        throw error;
+    }
+}
+
 exports.pull = async params => {
     try {
-        let profile = await getProfile(base + params.username);
+        
+        let profile = await getProfileByLogged(params);
         let options = {
             uri: gqlUri,
             qs: {
