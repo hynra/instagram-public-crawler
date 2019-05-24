@@ -64,7 +64,7 @@ Using `.start()` to get media feed (possible to get all media)
    
    `query_hash` : hash of instagram `GraphQL` query. See below for instructions.
    
-   `media_count` : The amount of media you want to get.
+   `media_count` : The amount of media you want to get. Use `-1` to get all media feed.
    
    `cookie`: See below for instructions.
  
