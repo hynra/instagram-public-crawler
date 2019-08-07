@@ -1,6 +1,7 @@
 const { getProfile } = require('./profile');
 const base = "https://www.instagram.com/";
-const gqlUri = "https://www.instagram.com/graphql/query"
+const gqlUri = "https://www.instagram.com/graphql/query";
+
 const rp = require('request-promise');
 
 exports.lite = async (username, options) => {
@@ -140,4 +141,14 @@ pullAllMedia = async (params, options) => {
         throw error;
     }
 
+}
+
+exports.getMediaDetail = async (params) => {
+    try {
+        const uri = `https://www.instagram.com/p/${params.shortcode}/?__a=1`
+        
+
+    } catch (error) {
+        throw error;
+    }
 }

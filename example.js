@@ -1,3 +1,5 @@
+const dotenv = require('dotenv');
+dotenv.config();
 const crawler = require('./src');
 
 loadLite = async () => {
@@ -12,15 +14,15 @@ loadLite = async () => {
 load = async () => {
     try {
         let options = {
-            raw: false,
+            raw: true,
             username: 'permanahendra',
             query_hash: 'f2405b236d85e8296cf30347c9f08c2a',
-            media_count: 101,
-            cookie: ''
+            media_count: 3,
+            cookie: process.env.COOKIE
         }
         let media = await crawler.start(options);
         if (options.raw)
-            console.log(JSON.stringify(media.data.user.edge_owner_to_timeline_media.edges.length));
+            console.log(JSON.stringify(media.data));
         else
             console.log(media.length)
     } catch (error) {
@@ -28,4 +30,4 @@ load = async () => {
     }
 }
 
-loadLite();
+load();

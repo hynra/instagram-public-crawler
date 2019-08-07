@@ -8,16 +8,17 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/hynra/instagram-private-api-example.git"
+    "url": "git+https://github.com/hynra/instagram-media-crawler.git"
   },
   "author": "github.com/hynra",
   "license": "UNLICENSED",
   "bugs": {
-    "url": "https://github.com/hynra/instagram-private-api-example/issues"
+    "url": "https://github.com/hynra/instagram-media-crawler.git"
   },
-  "homepage": "https://github.com/hynra/instagram-private-api-example#readme",
+  "homepage": "https://github.com/hynra/instagram-media-crawler.git",
   "dependencies": {
     "cheerio": "^1.0.0-rc.2",
+    "dotenv": "^8.0.0",
     "request-promise": "^4.2.4"
   }
 }
