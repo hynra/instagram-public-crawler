@@ -17,7 +17,7 @@ load = async () => {
             raw: true,
             username: 'permanahendra',
             query_hash: 'f2405b236d85e8296cf30347c9f08c2a',
-            media_count: 3,
+            media_count: -1,
             cookie: process.env.COOKIE
         }
         let media = await crawler.start(options);

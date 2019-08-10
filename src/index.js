@@ -39,22 +39,22 @@ getProfileByLogged = async params => {
             json: true
         };
         let profile = await rp(options);
-        if(profile.graphql.user.is_private){
+        if (profile.graphql.user.is_private) {
             throw new Error("Profile is private!")
-        }else{
+        } else {
             return profile;
         }
 
     } catch (error) {
-        if(error.statusCode === 404){
+        if (error.statusCode === 404) {
             throw new Error("User not found!");
-        }else throw error;
+        } else throw error;
     }
 }
 
 exports.start = async params => {
     try {
-        
+
         let profile = await getProfileByLogged(params);
         let options = {
             uri: gqlUri,
@@ -70,7 +70,12 @@ exports.start = async params => {
             json: true
         };
 
-        if (params.media_count <= 50 && params.media_count !== -1) {
+        //console.log(params);
+        let endCursor = profile.graphql.user.edge_owner_to_timeline_media.page_info.end_cursor;
+        let hasNextPage = profile.graphql.user.edge_owner_to_timeline_media.page_info.has_next_page;
+
+        if ((params.media_count <= 50 && params.media_count > -1) || hasNextPage === false) {
+            options.qs.first = 50;
             let media = await rp(options);
             if (params.raw === false) {
                 let m = [];
@@ -82,11 +87,11 @@ exports.start = async params => {
             } else
                 return media;
         } else {
-            let endCursor = profile.graphql.user.edge_owner_to_timeline_media.page_info.end_cursor;
-            let hasNextPage = profile.graphql.user.edge_owner_to_timeline_media.page_info.has_next_page;
+
             let rParams = {
                 endCursor, hasNextPage
             }
+            //console.log(rParams);
             let media = await pullAllMedia(rParams, options);
             if (params.raw === false) {
                 let m = [];
@@ -146,7 +151,7 @@ pullAllMedia = async (params, options) => {
 exports.getMediaDetail = async (params) => {
     try {
         const uri = `https://www.instagram.com/p/${params.shortcode}/?__a=1`
-        
+
 
     } catch (error) {
         throw error;
