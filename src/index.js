@@ -4,7 +4,7 @@ const gqlUri = "https://www.instagram.com/graphql/query";
 
 const rp = require('request-promise');
 
-exports.lite = async (username, options) => {
+lite = async (username, options) => {
     try {
         let profile = await getProfile(base + username);
         if (profile !== false) {
@@ -52,7 +52,7 @@ getProfileByLogged = async params => {
     }
 }
 
-exports.start = async params => {
+start = async params => {
     try {
 
         let profile = await getProfileByLogged(params);
@@ -156,4 +156,10 @@ exports.getMediaDetail = async (params) => {
     } catch (error) {
         throw error;
     }
+}
+
+module.exports = {
+    start,
+    lite,
+    getProfileByLogged
 }
