@@ -14,8 +14,8 @@ loadLite = async () => {
 load = async () => {
     try {
         let options = {
-            raw: true,
-            username: 'permanahendra',
+            raw: false,
+            username: 'invikard.demo',
             query_hash: 'f2405b236d85e8296cf30347c9f08c2a',
             media_count: -1,
             cookie: process.env.COOKIE

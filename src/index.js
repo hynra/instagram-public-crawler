@@ -137,8 +137,8 @@ pullAllMedia = async (params, options) => {
             }
         }
 
-        if (results.length > mediaLimit) {
-            results = results.slice(0, mediaLimit)
+        if (results.length > mediaLimit && mediaLimit !== -1) {
+            results = results.slice(0, mediaLimit);
         }
         r.data.user.edge_owner_to_timeline_media.edges = results;
         return r;
