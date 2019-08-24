@@ -161,5 +161,6 @@ exports.getMediaDetail = async (params) => {
 module.exports = {
     start,
     lite,
-    getProfileByLogged
+    getProfileByLogged,
+    Comments: require("./comments"),
 }

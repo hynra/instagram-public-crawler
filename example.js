@@ -30,4 +30,27 @@ load = async () => {
     }
 }
 
-load();
+
+loadComments = async () =>{
+
+
+    let comments = new crawler.Comments({
+        cookie: process.env.COOKIE,
+    });
+
+    try {
+        let result = await comments.getComments({
+            shortcode: "B1h04knHAEi"
+        })
+
+        console.log(JSON.stringify(result));
+
+    } catch (error) {
+        console.log(error);
+    }
+
+
+}
+
+
+loadComments();
