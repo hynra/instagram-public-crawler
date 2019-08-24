@@ -12,11 +12,11 @@ let headers = {
 const rp = require('request-promise');
 let base_url = 'https://www.instagram.com/graphql/query/'
 
-module.exports = class Comments{
-    
-    
+module.exports = class Comments {
 
-    constructor (_config) {
+
+
+    constructor(_config) {
         config.cookie = (_config.cookie) ? _config.cookie : config.cookie;
         config.shortcode = (_config.shortcode) ? _config.cookie : config.shortcode;
         config.query_id = (_config.query_id) ? _config.query_id : config.query_id;
@@ -26,23 +26,32 @@ module.exports = class Comments{
     }
 
 
-    async getComments(params){
-        if(params.first) config.first = params.first;
-        if(params.shortcode) config.shortcode = params.shortcode;
+    async getComments(params) {
+        if (params.first) config.first = params.first;
+        if (params.shortcode) config.shortcode = params.shortcode;
+        
+        let qs = {
+            query_id: config.query_id,
+            first: config.first,
+            shortcode: config.shortcode
+        }
+
+        if(params.after) qs.after = params.after;
 
         let options = {
             uri: base_url,
-            qs: {
-                query_id: config.query_id,
-                first: config.first,
-                shortcode: config.shortcode
-            },
+            qs,
             headers,
             json: true
         };
 
-        let result = await rp(options);
-        return result;
+        try {
+            let result = await rp(options);
+            return result;
+        } catch (error) {
+            throw error;
+        }
+
 
     }
 
