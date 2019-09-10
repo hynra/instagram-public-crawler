@@ -18,7 +18,8 @@ load = async () => {
             username: 'invikard.demo',
             query_hash: 'f2405b236d85e8296cf30347c9f08c2a',
             media_count: -1,
-            cookie: process.env.COOKIE
+            cookie: process.env.COOKIE,
+            debug: true
         }
         let media = await crawler.start(options);
         if (options.raw)
@@ -53,4 +54,5 @@ loadComments = async () =>{
 }
 
 
-loadComments();
+//loadComments();
+load();

@@ -39,6 +39,9 @@ getProfileByLogged = async params => {
             json: true
         };
         let profile = await rp(options);
+        if(params.debug){
+            console.log("Profile: ", profile);
+        }
         if (profile.graphql.user.is_private) {
             throw new Error("Profile is private!")
         } else {
